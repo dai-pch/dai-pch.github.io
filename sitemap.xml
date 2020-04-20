@@ -3,6 +3,16 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://blog.daipch.cn/life/</loc>
+    <lastmod>2020-04-20T23:21:30+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.daipch.cn/life/writting-on-my-birthday/</loc>
+    <lastmod>2020-04-20T23:21:30+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.daipch.cn/</loc>
     <lastmod>2020-04-01T00:00:00+08:00</lastmod>
   </url>
@@ -10,11 +20,6 @@
   <url>
     <loc>https://blog.daipch.cn/about/</loc>
     <lastmod>2020-04-01T00:00:00+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.daipch.cn/life/</loc>
-    <lastmod>2020-04-10T01:00:19+08:00</lastmod>
   </url>
   
   <url>
