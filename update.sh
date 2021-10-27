@@ -15,7 +15,7 @@ fi
 
 echo $msg
 
-git commit -m "$msg"
+git commit --allow-empty -m "$msg"
 if [ $? -eq 0 ]; then
     git push origin master
 fi
