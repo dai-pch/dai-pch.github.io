@@ -6,11 +6,11 @@
     <description>Recent content in Software on 东有启明</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 27 Oct 2021 21:00:00 +0800</lastBuildDate><atom:link href="https://blog.daipch.cn/categories/Software/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 27 Oct 2021 22:00:00 +0800</lastBuildDate><atom:link href="https://blog.daipch.cn/categories/Software/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>函数式编程笔记（一） —— 函数式编程的基本特征</title>
       <link>https://blog.daipch.cn/tech/fp1-features/</link>
-      <pubDate>Wed, 27 Oct 2021 21:00:00 +0800</pubDate>
+      <pubDate>Wed, 27 Oct 2021 22:00:00 +0800</pubDate>
       
       <guid>https://blog.daipch.cn/tech/fp1-features/</guid>
       <description>前言 本系列笔记是我学习函数式编程过程中的一些记录和思考，也作为与他人交流讨论的基础。 本系列假定读者有中等以上软件系统的开发经验，对面向对象编程的基本概念有一定了解。不要求读者对函数式编程有实际了解。 本系列看作者心情不定期更新。 什么是函数式编程 函数式编程是软件开发的著名范式之一。作</description>
