@@ -6,7 +6,16 @@
     <description>Recent content in Functional Programming on 东有启明</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 27 Oct 2021 22:00:00 +0800</lastBuildDate><atom:link href="https://blog.daipch.cn/tags/Functional-Programming/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 19 Nov 2021 23:31:00 +0800</lastBuildDate><atom:link href="https://blog.daipch.cn/tags/Functional-Programming/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>函数式编程笔记（二） —— 基本数据结构</title>
+      <link>https://blog.daipch.cn/tech/functional-programming/2-basic-structure/</link>
+      <pubDate>Fri, 19 Nov 2021 23:31:00 +0800</pubDate>
+      
+      <guid>https://blog.daipch.cn/tech/functional-programming/2-basic-structure/</guid>
+      <description>本篇将介绍函数式编程中常用的两种基本数据结构，list（列表）和tuple（元组）。 这两种数据结构贯穿了函数式编程的全部内容。 list和tuple是如此强大，以至于Lisp这样的函数式语言，在语言层面没有结构体的情况下，仍然能够基于这两种数据结构，做出全部的编程抽象。 实际上Lis</description>
+    </item>
+    
     <item>
       <title>函数式编程笔记（一） —— 函数式编程的基本特征</title>
       <link>https://blog.daipch.cn/tech/functional-programming/1-features/</link>
