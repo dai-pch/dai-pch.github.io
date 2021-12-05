@@ -6,7 +6,16 @@
     <description>Recent content on 东有启明</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 19 Nov 2021 23:31:00 +0800</lastBuildDate><atom:link href="https://blog.daipch.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 20 Nov 2021 11:00:00 +0800</lastBuildDate><atom:link href="https://blog.daipch.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>函数式编程笔记（三） —— 高阶函数与柯里化</title>
+      <link>https://blog.daipch.cn/tech/functional-programming/3-high-order-function/</link>
+      <pubDate>Sat, 20 Nov 2021 11:00:00 +0800</pubDate>
+      
+      <guid>https://blog.daipch.cn/tech/functional-programming/3-high-order-function/</guid>
+      <description>高阶函数（High Order Function） 在本系列第一篇文章中提到过，“first class function”是函数式编程的本质特征之一。这意味着，一个函数的参数或返回值不仅可以是变量（数据），也可以是另一个函数。 为了理解这一点，我们首先看一个例子。 func double(x int) int { return x * 2 } func applyTwice(f func(int) int, x int) int { return f( f(x)</description>
+    </item>
+    
     <item>
       <title>函数式编程笔记（二） —— 基本数据结构</title>
       <link>https://blog.daipch.cn/tech/functional-programming/2-basic-structure/</link>

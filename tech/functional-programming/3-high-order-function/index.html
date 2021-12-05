@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    
+    <link rel="canonical" href="https://blog.daipch.cn/tech/functional-programming/3-high-order-function/">
+    
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.89.4" />
+
+    
+    
+    
+
+<title>函数式编程笔记（三） —— 高阶函数与柯里化 • 东有启明</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="函数式编程笔记（三） —— 高阶函数与柯里化"/>
+<meta name="twitter:description" content="我学习函数式编程的记录和思考"/>
+
+<meta property="og:title" content="函数式编程笔记（三） —— 高阶函数与柯里化" />
+<meta property="og:description" content="我学习函数式编程的记录和思考" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.daipch.cn/tech/functional-programming/3-high-order-function/" /><meta property="article:section" content="tech" />
+<meta property="article:published_time" content="2021-11-20T11:00:00+08:00" />
+<meta property="article:modified_time" content="2021-11-20T11:00:00+08:00" />
+
+
+
+    
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/scss/hyde-hyde.3081c4981fb69a2783dd36ecfdd0e6ba7a158d4cbfdd290ebce8f78ba0469fc6.css" integrity="sha256-MIHEmB&#43;2mieD3Tbs/dDmunoVjUy/3SkOvOj3i6BGn8Y=">
+
+
+<link rel="stylesheet" href="/scss/print.2744dcbf8a0b2e74f8a50e4b34e5f441be7cf93cc7de27029121c6a09f9e77bc.css" integrity="sha256-J0Tcv4oLLnT4pQ5LNOX0Qb58&#43;TzH3icCkSHGoJ&#43;ed7w=" media="print">
+
+
+
+
+<link rel="stylesheet" href="/scss/tocbot.5ef07cebc3c477b54270456f149ee02922479bb7555fd344b2c69f953b0e7e5e.css" integrity="sha256-XvB868PEd7VCcEVvFJ7gKSJHm7dVX9NEssaflTsOfl4=">
+
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+    
+
+</head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://blog.daipch.cn/">
+        
+          东有启明
+        
+        </a>
+      </span>
+      
+        
+        
+        
+        <div class="author-image">
+          <img src="https://blog.daipch.cn/img/venus.jpg" alt="Author Image" class="img--circle img--headshot element--center">
+        </div>
+        
+      
+      
+      <p class="site__description">
+         技术与非技术的感想和随笔 
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">东有启明</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/life/">
+						<span>🍩 生活</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/tech/">
+						<span>🖥️ 技术</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/archives/">
+						<span>📚 归档</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/about/">
+						<span>🤪 关于</span>
+					</a>
+				</li>
+			 
+		
+	</ul>
+</div>
+
+        <section class="social">
+	
+	
+	
+	
+	<a href="https://github.com/dai-pch" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<a href="mailto:dpc_work@163.com" rel="me"><i class="fas fa-at fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+</section>
+
+      </div>
+    </div>
+    
+<div class="copyright">
+  &copy; 2020 - 2021 daipch
+  
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>
+  
+</div>
+
+
+<div class="builtwith">
+Built with <a href="https://gohugo.io">Hugo</a> ❤️ <a href="https://github.com/htr3n/hyde-hyde">hyde-hyde</a>.
+</div>
+
+
+  </div>
+</div>
+
+        <div class="content container">
+            
+    
+<article>
+  <header>
+    <h1>函数式编程笔记（三） —— 高阶函数与柯里化</h1>
+    
+    
+<div class="post__meta">
+    
+    
+      <i class="fas fa-calendar-alt"></i> Nov 20, 2021
+    
+    
+    
+      
+      
+          in
+          
+          
+              <a class="badge badge-category" href="/categories/Software">SOFTWARE</a>
+              
+          
+      
+    
+    
+    
+      
+      
+          <br/>
+           <i class="fas fa-tags"></i>
+          
+          <a class="badge badge-tag" href="/tags/Functional-Programming">functional programming</a>
+          
+      
+    
+    
+    <br/>
+    <i class="fas fa-clock"></i> 4 min read
+</div>
+
+
+  </header>
+  
+  
+  
+    <div class="toc-wrapper">
+      <input type="checkbox" id="tocToggle">
+      <label for="tocToggle">Table of Content</label>
+      
+        <div class="toc" id="TableOfContents"></div>
+      
+    </div>
+  
+  
+  <div class="post">
+    <h2 id="高阶函数high-order-function">高阶函数（High Order Function）</h2>
+<p>在本系列<a href="/tech/functional-programming/1-features/">第一篇文章</a>中提到过，“first class function”是函数式编程的本质特征之一。这意味着，一个函数的参数或返回值不仅可以是变量（数据），也可以是另一个函数。</p>
+<p>为了理解这一点，我们首先看一个例子。</p>
+<pre tabindex="0"><code>func double(x int) int {
+    return x * 2
+}
+
+func applyTwice(f func(int) int, x int) int {
+    return f( f(x) )
+}
+
+applyTwice(double, 12) == 48
+</code></pre><p>上面的伪代码是一个高阶函数的例子。
+double函数返回输入值的二倍；
+applyTwice函数接受两个参数，第一个参数f是一个函数，第二个参数x是一个初始值。
+applyTwice将f应用到x上两次，并返回结果，即<code>applyTwice(f, x) == f(f(x))</code>。
+将double函数和12作为参数传入到applyTwice函数中，结果就是12执行了两次double，从而得到结果48。</p>
+<p>applyTwice的第一个参数是一个函数，因此applyTwice是一个高阶函数。</p>
+<h2 id="柯里化currying1">柯里化（Currying）<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>我们再来看另一个例子。下面的代码是一个简单的add函数，它的返回值是两个参数之和。</p>
+<pre tabindex="0"><code>func add(a int, b int) int {
+    return a + b
+}
+
+add(3, 5) == 8
+</code></pre><p>然而，有了高阶函数之后，我们可以写出这样的代码：</p>
+<pre tabindex="0"><code>func add_(a int) func(int) int {
+    return func(b int) int {
+        return a + b
+    }
+}
+
+add_(3)(5) == 8
+</code></pre><p>这里的add_函数只有一个参数a，它的返回值是另一个函数，我们暂且叫做add_b。
+add_b接受一个整数参数b，返回一个整数，其返回值是a与b的和。
+在调用时，add_(3)返回一个单参数函数；再用5作为参数调用该函数，即为add_(3)(5)，其结果为两个参数的和8。</p>
+<p>我们可以看到，从功能上，add和add_两个函数并没有本质的不同，但是add_是以高阶函数的形式表达的。
+事实上，对于任意一个n个参数的函数f，只要n&gt;1，我们都可以将它改写为类似的形式：即函数一次只接受一个参数，返回一个n-1个参数的函数。
+这种转换称之为柯里化（Currying）。
+柯里化对函数的功能不会有任何影响，但柯里化的函数允许我们部分应用（partially apply）一个函数，即只传给函数部分的参数。</p>
+<p>我们可以再做一点推广。
+考虑参数个数为零的函数，即无参数的函数。
+无参数函数不接受任何参数。在纯函数的约束下，这意味着只要该函数被调用，就总会返回相同的值。
+考虑到函数式编程中变量本身是不可变的，那么无参数函数和变量（常量）就没有任何区别了。
+实际上，在Scala语言中，无参数函数（用def定义）和不可变变量（用val定义）很大程度上是可以互换的。
+而在Haskell这样的语言中，两者的定义和使用在语法上都没有任何区别，从而实现了变量（数据）和函数（过程）的统一。</p>
+<h2 id="haskell的函数定义">Haskell的函数定义</h2>
+<p>为方便起见，这里首先介绍一下Haskell中函数定义的语法。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#f92672">&gt;&gt;</span> add x y <span style="color:#f92672">=</span> x <span style="color:#f92672">+</span> y
+
+<span style="color:#f92672">&gt;&gt;</span> multiply x y <span style="color:#f92672">=</span> x <span style="color:#f92672">*</span> y
+
+<span style="color:#f92672">&gt;&gt;</span> double x <span style="color:#f92672">=</span> multiply <span style="color:#ae81ff">2</span> x
+
+<span style="color:#f92672">&gt;&gt;</span> double&#39; <span style="color:#f92672">=</span> multiply <span style="color:#ae81ff">2</span>
+
+<span style="color:#f92672">&gt;&gt;</span> applyTwice f x <span style="color:#f92672">=</span> f ( f x )
+
+<span style="color:#f92672">&gt;&gt;</span> three <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>
+
+<span style="color:#f92672">&gt;&gt;</span> applyTwice double&#39; three
+<span style="color:#ae81ff">12</span>
+
+</code></pre></div><p>上述代码是Haskell的交互式环境ghci中函数定义和使用的几个例子。
+函数定义通过“=”操作符表示，“=”的左边是函数名称及其参数，用空格分开；右边是函数体，也就是函数实际执行的运算和返回值。
+在Haskell中，一切语句都是表达式，都会返回一个值。函数定义中，函数体表达式的值就是函数的返回值。
+add和multiply的定义都是这种方式。</p>
+<p>double函数有两个版本的定义：第一个版本是正常的函数定义，但是函数内部引用了另一个函数multiply；
+另一个版本double&rsquo;的功能与double完全一致，但是省略了参数x。</p>
+<p>double&rsquo;的定义为什么是合法的呢？
+原因是，Haskell中的一切函数都是柯里化的，也就是可以部分应用的。
+multiply是一个双参数函数，将一个参数2应用到multiply函数上，得到的值是另一个单参数函数。
+double&rsquo;的定义中，右边函数体的值正是这样一个单参数函数，该函数被绑定到double&rsquo;这个名字上，从而完成了函数的定义。</p>
+<p>最后一个例子是函数应用，含义是将double&rsquo;和three作为参数传给applyTwice函数，不出意外的得到计算结果12。
+由于Haskell中函数是完全柯里化的，参数应用的顺序也是从左到右，因此函数调用时参数不必加括号，只需空格分隔即可。</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>“柯里化”（Currying）这个词来源于数理逻辑学家 Haskell Brooks Curry，编程语言Haskell也同样以他的名字命名。&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+  </div>
+  
+
+
+  
+
+  
+    
+        <script src="https://utteranc.es/client.js"
+        repo="dai-pch/dai-pch.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+    
+
+
+</article>
+
+
+        </div>
+        
+    
+
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-162149996-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.12.1/js/all.js" integrity="sha384-ZbbbT1gw3joYkKRqh0kWyRp32UAvdqkpbLedQJSlnI8iLQcFVxaGyrOgOJiDQTTR" crossorigin="anonymous"></script>
+
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        
+    <script type="text/javascript">
+        
+        hljs.initHighlightingOnLoad();
+    </script>
+    
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.js"></script>
+<script type="text/javascript">
+  if (tocbot) {
+    tocbot.init({
+      
+      tocSelector: '.toc',
+      
+      contentSelector: '.post',
+      
+      headingSelector: 'h2, h3, h4',
+      collapseDepth: 4
+    });
+  }
+</script>
+
+
+
+    
+
+
+
+    </body>
+</html>
